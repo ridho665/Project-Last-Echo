@@ -33,20 +33,20 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|-T pose
-      takeName: Armature|-T pose
+      name: Armature|Idle Pickup Left (1)
+      takeName: Armature|Idle Pickup Left
       internalID: 984361156528520107
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
@@ -102,12 +102,12 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -276,12 +276,12 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -402,28 +402,28 @@ ModelImporter:
     serializedVersion: 3
     human: []
     skeleton:
-    - name: AEON Character (1)(Clone)
+    - name: AEON Character(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Plane.001
-      parentName: AEON Character (1)(Clone)
+      parentName: AEON Character(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
     - name: Plane.003
-      parentName: AEON Character (1)(Clone)
+      parentName: AEON Character(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
     - name: Circle
-      parentName: AEON Character (1)(Clone)
+      parentName: AEON Character(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
     - name: Armature
-      parentName: AEON Character (1)(Clone)
+      parentName: AEON Character(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -733,12 +733,12 @@ ModelImporter:
       rotation: {x: 0.7068172, y: 0.020235283, z: 0.020235283, w: 0.7068172}
       scale: {x: 1, y: 1.000001, z: 1.000001}
     - name: BezierCurve
-      parentName: AEON Character (1)(Clone)
+      parentName: AEON Character(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
     - name: Camera
-      parentName: AEON Character (1)(Clone)
+      parentName: AEON Character(Clone)
       position: {x: -1.8046918, y: 3.1134405, z: 18.21878}
       rotation: {x: 2.512148e-15, y: -1, z: -2.1175826e-22, w: 0.00000005960465}
       scale: {x: 1, y: 1, z: 1}
