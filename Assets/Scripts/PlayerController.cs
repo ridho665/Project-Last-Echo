@@ -1,41 +1,36 @@
-    using UnityEngine;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
-    {
-        [SerializeField] private float moveSpeed = 5f;
-        [SerializeField] private float jumpForce = 5f;
-        [SerializeField] private Transform groundCheck;
-        [SerializeField] private float groundCheckRadius = 0.2f;
-        [SerializeField] private LayerMask whatIsGround;
-
+{
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private LayerMask whatIsGround;
 
     // Tambahan untuk stamina
-        [SerializeField] private float maxStamina = 100f;
-        [SerializeField] private float staminaRegenRate = 5f;
-        [SerializeField] private float staminaDrainRate = 10f;
-        private float currentStamina;
-        public UnityEngine.UI.Image staminaBar; // pastikan ini disambungkan ke UI Image di Canvas
+    [SerializeField] private float maxStamina = 100f;
+    private float currentStamina;
+    public UnityEngine.UI.Image staminaBar;
 
+    private Rigidbody rb;
+    private bool isFacingRight = true;
+    private bool isGrounded;
+    private bool isInDesert = false; // Tambahan: cek apakah pemain di Desert land
+    private float overheatMultiplier = 5f; // Tambahan: faktor pengurangan stamina saat overheat
 
-        private Rigidbody rb;
-        private bool isFacingRight = true;
-        private bool isGrounded;
+    public Animator playerAnim;
+    public Rigidbody playerRigid;
+    public bool walking;
 
-        public Animator playerAnim;
-        public Rigidbody playerRigid;
-        public bool walking;
-
-
-
-        private void Start()
-        {
-
+    private void Start()
+    {
         rb = GetComponent<Rigidbody>();
-        playerAnim = GetComponent<Animator>(); // Menyambungkan secara otomatis ke komponen Animator di objek yang sama
+        playerAnim = GetComponent<Animator>();
         currentStamina = maxStamina;
-
-         }
+    }
 
     private void Update()
     {
@@ -47,11 +42,13 @@ public class PlayerController : MonoBehaviour
 
         if (move != 0 && isGrounded)
         {
-            DrainStamina(staminaDrainRate * Time.deltaTime);
+            walking = true;
+            DrainStamina(2.5f * Time.deltaTime);
         }
         else if (isGrounded)
         {
-            RegenStamina(staminaRegenRate * Time.deltaTime);
+            walking = false;
+            DrainStamina(0.5f * Time.deltaTime);
         }
 
         if (move > 0 && !isFacingRight)
@@ -68,7 +65,7 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector3(0f, jumpForce, 0f), ForceMode.Impulse);
             playerAnim.SetTrigger("jump");
             playerAnim.ResetTrigger("idle");
-            DrainStamina(staminaDrainRate); // Kurangi stamina saat lompat
+            StartCoroutine(DrainStaminaOverTime(3f, 1f));
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
@@ -91,13 +88,13 @@ public class PlayerController : MonoBehaviour
             walking = false;
         }
 
-        if (walking == true)
+        if (walking)
         {
             if (Input.GetKeyDown(KeyCode.LeftShift) && currentStamina > 0)
             {
                 playerAnim.SetTrigger("run");
                 playerAnim.ResetTrigger("walk");
-                DrainStamina(staminaDrainRate * Time.deltaTime * 2); // Drain lebih banyak saat berlari
+                DrainStamina(6f * Time.deltaTime);
             }
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
@@ -106,15 +103,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // Update stamina bar width
-        RectTransform rt = staminaBar.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(currentStamina / maxStamina * 150f, rt.sizeDelta.y); // 150f adalah nilai width maksimal, sesuaikan dengan kebutuhan Anda
-    }
-    
+        // Update stamina bar width dan warnanya
+        UpdateStaminaBar();
 
+    }
 
     private void DrainStamina(float amount)
     {
+        // Tambahan: Jika di Desert land, stamina habis lebih cepat
+        if (isInDesert)
+        {
+            amount *= overheatMultiplier;
+        }
+
         currentStamina -= amount;
         if (currentStamina < 0)
         {
@@ -131,12 +132,68 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void UpdateStaminaBar()
+    {
+        RectTransform rt = staminaBar.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(currentStamina / maxStamina * 150f, rt.sizeDelta.y);
+
+        Color32 greenColor = new Color32(150, 187, 124, 255);
+        Color32 yellowColor = new Color32(250, 213, 134, 255);
+        Color32 redColor = new Color32(198, 71, 86, 255);
+
+        Color32 barColor;
+
+        if (currentStamina / maxStamina > 0.5f)
+        {
+            barColor = greenColor;
+        }
+        else if (currentStamina / maxStamina > 0.2f)
+        {
+            barColor = yellowColor;
+        }
+        else
+        {
+            barColor = redColor;
+        }
+
+        staminaBar.color = barColor;
+    }
 
     private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
+    }
+
+    private IEnumerator DrainStaminaOverTime(float totalDrain, float duration)
+    {
+        float amountDrained = 0f;
+        while (amountDrained < totalDrain && currentStamina > 0)
         {
-            isFacingRight = !isFacingRight;
-            Vector3 scaler = transform.localScale;
-            scaler.x *= -1;
-            transform.localScale = scaler;
+            float drainAmount = (totalDrain / duration) * Time.deltaTime;
+            DrainStamina(drainAmount);
+            amountDrained += drainAmount;
+            yield return null;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Tambahan: Cek jika player masuk ke Desert land
+        if (other.CompareTag("Desert land"))
+        {
+            isInDesert = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // Tambahan: Cek jika player keluar dari Desert land
+        if (other.CompareTag("Desert land"))
+        {
+            isInDesert = false;
+        }
+    }
+}
