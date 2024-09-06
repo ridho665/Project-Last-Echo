@@ -15,11 +15,17 @@ public class PlayerBattery : MonoBehaviour
     {
         currentBattery = maxBattery;
         playerController = GetComponent<PlayerController>();
+
+        if (batteryBar == null)
+        {
+            FindBatteryBar(); // Cari battery bar saat Start jika belum di-set
+        }
+        
         UpdateBatteryUI(); // Update UI saat game dimulai
     }
 
     private void Update()
-    {
+    {      
         if (isDead)
             return;
 
@@ -68,7 +74,7 @@ public class PlayerBattery : MonoBehaviour
         return currentBattery;
     }
 
-    private void UpdateBatteryUI()
+    public void UpdateBatteryUI()
     {
         if (batteryBar != null)
         {
@@ -77,4 +83,44 @@ public class PlayerBattery : MonoBehaviour
             batteryBar.localScale = new Vector3(scaleX, 1f, 1f); // Hanya skala X yang berubah
         }
     }
+
+    // public void SetBatteryBar(RectTransform newBatteryBar)
+    // {
+    //     batteryBar = newBatteryBar;
+    //     UpdateBatteryUI(); // Pastikan UI langsung terupdate setelah di-set
+    // }
+
+    public void InitializeBattery(RectTransform batteryBarUI)
+    {
+        // Inisialisasi ulang baterai dan UI saat player respawn
+        batteryBar = batteryBarUI;
+        currentBattery = maxBattery;
+        isDead = false;
+        UpdateBatteryUI(); // Update UI agar sinkron dengan state baterai saat ini
+    }
+
+    private void FindBatteryBar()
+    {
+        // Cari GameObject dengan nama "BarCurrent"
+        GameObject batteryBarObject = GameObject.Find("BarCurrent");
+
+        // Pastikan object ditemukan dan memiliki RectTransform
+        if (batteryBarObject != null)
+        {
+            batteryBar = batteryBarObject.GetComponent<RectTransform>();
+            if (batteryBar != null)
+            {
+                Debug.Log("Battery bar ditemukan dan diassign.");
+            }
+            else
+            {
+                Debug.LogError("GameObject BarCurrent ditemukan, tetapi tidak memiliki RectTransform.");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameObject BarCurrent tidak ditemukan!");
+        }
+    }
+
 }

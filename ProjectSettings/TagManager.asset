@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ShieldDetect
   - Shield
+  - BarCurret
   layers:
   - Default
   - TransparentFX
