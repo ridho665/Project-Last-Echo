@@ -9,6 +9,8 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
+        PlayerManager.instance.cameraManager = this;
+
         if (cinemachineCamera == null)
         {
             Debug.LogError("Cinemachine Virtual Camera is not assigned.");

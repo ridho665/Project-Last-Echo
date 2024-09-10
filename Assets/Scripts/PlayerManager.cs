@@ -10,10 +10,10 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public GameObject currentPlayer;
 
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private CameraManager cameraManager;
     
     private PlayerBattery playerBattery;
 
+    public CameraManager cameraManager;
     public InGameUI inGameUI;
 
 
