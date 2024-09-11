@@ -1376,6 +1376,7 @@ GameObject:
   - component: {fileID: 8429025066245248073}
   - component: {fileID: 3489716996366069722}
   - component: {fileID: 332180381664775546}
+  - component: {fileID: 84780123539726106}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1525,6 +1526,25 @@ MonoBehaviour:
   shieldObject: {fileID: 5616372655842991991}
   shieldDuration: 5
   shieldCooldown: 10
+--- !u!114 &84780123539726106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4304311557241901988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd6ed5570846f5a439d2b5bcb1be8377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSource: {fileID: 1038045617806715817}
+  drainRate: 0.05
+  rechargeAmount: 2
+  maxLightRange: 10
+  maxLightIntensity: 7
+  flickerSpeed: 0.01
+  flickerAmount: 0.7
 --- !u!1 &4394194016761986649
 GameObject:
   m_ObjectHideFlags: 0
@@ -7238,8 +7258,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.3119081, g: 0.9339623, b: 0.9133446, a: 1}
-  m_Intensity: 3.4
-  m_Range: 6.36
+  m_Intensity: 7
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

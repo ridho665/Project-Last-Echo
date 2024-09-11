@@ -7,6 +7,8 @@ TagManager:
   - ShieldDetect
   - Shield
   - BarCurret
+  - Sunlight
+  - Water
   layers:
   - Default
   - TransparentFX

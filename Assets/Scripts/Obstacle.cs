@@ -2,24 +2,32 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] private float batteryDrainAmount = 10f; // Jumlah pengurangan baterai
+    // [SerializeField] private float batteryDrainAmount = 10f; // Jumlah pengurangan baterai
+    [SerializeField] private float lightRangeReduction = 1f; // Pengurangan range cahaya
 
     private void OnTriggerEnter(Collider other)
     {
         // Cek apakah yang menyentuh obstacle adalah Player
         if (other.CompareTag("Player"))
         {
-            // Coba dapatkan komponen PlayerBattery dari player
-            PlayerBattery playerBattery = other.GetComponent<PlayerBattery>();
+            // // Kurangi baterai pemain
+            // PlayerBattery playerBattery = other.GetComponent<PlayerBattery>();
+            // if (playerBattery != null)
+            // {
+            //     playerBattery.RechargeBattery(-batteryDrainAmount); // Mengurangi baterai
+            //     Debug.Log("Player terkena obstacle, baterai berkurang 10!");
+            // }
 
-            // Jika player memiliki komponen PlayerBattery
-            if (playerBattery != null)
+            // Kurangi range cahaya dari LightSeed
+            LightSeed lightSeed = other.GetComponent<LightSeed>();
+            if (lightSeed != null)
             {
-                // Kurangi baterai pemain
-                playerBattery.RechargeBattery(-batteryDrainAmount); // Mengurangi 10 unit baterai
-                Debug.Log("Player terkena obstacle, baterai berkurang 10!");
-                Destroy(gameObject);
+                lightSeed.ReduceLightRange(lightRangeReduction); // Kurangi range cahaya
+                Debug.Log("Player terkena obstacle, range cahaya berkurang 1!");
             }
+
+            // Hancurkan obstacle setelah menyentuh player
+            Destroy(gameObject);
         }
     }
 }

@@ -1,17 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
 public class StartPoint : MonoBehaviour
 {
     [SerializeField] private Transform respPoint;
-    [SerializeField] private float activationDelay = 2f; // Waktu delay sebelum mengaktifkan PlayerController dan PlayerBattery
+    [SerializeField] private float activationDelay = 2f; // Waktu delay sebelum mengaktifkan PlayerController, PlayerBattery, dan LightSeed
     [SerializeField] private CinemachineVirtualCamera cinemachineCamera; // Referensi ke Cinemachine Virtual Camera
     [SerializeField] private RectTransform batteryBarUI;
 
     private void Awake()
     {
+        // Set respawn point dan respawn player
         PlayerManager.instance.respawnPoint = respPoint;
         PlayerManager.instance.RespawnPlayer();
 
@@ -21,31 +21,26 @@ public class StartPoint : MonoBehaviour
             cinemachineCamera.Follow = PlayerManager.instance.currentPlayer.transform;
         }
 
-        // Nonaktifkan PlayerController dan PlayerBattery untuk sementara
+        // Nonaktifkan PlayerController, PlayerBattery, dan LightSeed untuk sementara
         PlayerManager.instance.currentPlayer.GetComponent<PlayerController>().enabled = false;
         PlayerManager.instance.currentPlayer.GetComponent<PlayerBattery>().enabled = false;
+        PlayerManager.instance.currentPlayer.GetComponent<LightSeed>().enabled = false;
 
+        // Inisialisasi battery bar UI
         PlayerManager.instance.currentPlayer.GetComponent<PlayerBattery>().InitializeBattery(batteryBarUI);
 
-        // Jalankan coroutine untuk mengaktifkan setelah delay
+        // Jalankan coroutine untuk mengaktifkan komponen setelah delay
         StartCoroutine(ActivatePlayerComponentsAfterDelay());
-
-        // PlayerBattery playerBattery = PlayerManager.instance.currentPlayer.GetComponent<PlayerBattery>();
-
-        // if (playerBattery != null && batteryBarUI != null)
-        // {
-        //     // Inisialisasi battery dengan UI battery bar setelah respawn
-        //     playerBattery.InitializeBattery(batteryBarUI);
-        // }
     }
 
-    // Coroutine untuk menunggu delay dan mengaktifkan PlayerController dan PlayerBattery
+    // Coroutine untuk menunggu delay dan mengaktifkan PlayerController, PlayerBattery, dan LightSeed
     private IEnumerator ActivatePlayerComponentsAfterDelay()
     {
         yield return new WaitForSeconds(activationDelay); // Tunggu sesuai waktu delay
 
-        // Aktifkan PlayerController dan PlayerBattery
+        // Aktifkan PlayerController, PlayerBattery, dan LightSeed
         PlayerManager.instance.currentPlayer.GetComponent<PlayerController>().enabled = true;
         PlayerManager.instance.currentPlayer.GetComponent<PlayerBattery>().enabled = true;
+        PlayerManager.instance.currentPlayer.GetComponent<LightSeed>().enabled = true;
     }
 }

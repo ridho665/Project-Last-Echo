@@ -11,18 +11,48 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject creditsPanel;
     [SerializeField] private Button continueButton;
 
-    public void ContinueGame()
+    // public void ContinueGame()
+    // {
+    //     if (PlayerPrefs.HasKey("SavedLevel"))
+    //     {
+    //         string savedLevel = PlayerPrefs.GetString("SavedLevel");
+    //         StartCoroutine(LoadLevel(savedLevel));
+    //     }
+    // }
+
+
+    // public void StartNewGame()
+    // {
+    //     StartCoroutine(LoadLevel("Level1"));
+    // }
+
+    private void Start()
     {
+        // Pastikan tombol Continue hanya aktif jika ada level yang tersimpan
         if (PlayerPrefs.HasKey("SavedLevel"))
         {
-            string savedLevel = PlayerPrefs.GetString("SavedLevel");
-            StartCoroutine(LoadLevel(savedLevel));
+            continueButton.interactable = true;
+        }
+        else
+        {
+            continueButton.interactable = false;
         }
     }
 
-    public void StartNewGame()
+    public void OnContinuePressed()
     {
-        StartCoroutine(LoadLevel("Level1"));
+        GameManager.instance.LoadSavedLevel();
+    }
+
+    public void OnStartNewGame()
+    {
+        GameManager.instance.ResetProgress(); // Reset progress dan mulai dari level 1
+        GameManager.instance.LoadScene(1); // Mulai dari Level 1
+    }
+
+    public void OnContinueGame()
+    {
+        GameManager.instance.ContinueGame(); // Lanjutkan game dari level terakhir yang disimpan
     }
 
     private IEnumerator LoadLevel(string levelName)

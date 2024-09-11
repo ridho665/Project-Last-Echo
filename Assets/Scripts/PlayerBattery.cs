@@ -6,6 +6,7 @@ public class PlayerBattery : MonoBehaviour
     [SerializeField] private float maxBattery = 100f; // Maksimum daya baterai
     [SerializeField] private float batteryDrainRate = 1f; // Laju pengurangan baterai per detik
     [SerializeField] private RectTransform batteryBar; // Referensi ke UI RectTransform (battery bar)
+    // [SerializeField] private GameObject gameoverUI; // Referensi ke UI GameOver
 
     private float currentBattery;
     private bool isDead = false;
@@ -20,6 +21,11 @@ public class PlayerBattery : MonoBehaviour
         {
             FindBatteryBar(); // Cari battery bar saat Start jika belum di-set
         }
+
+        // if (gameoverUI == null)
+        // {
+        //     FindGameOverUI(); // Cari gameover UI saat Start jika belum di-set
+        // }
         
         UpdateBatteryUI(); // Update UI saat game dimulai
     }
@@ -56,6 +62,13 @@ public class PlayerBattery : MonoBehaviour
         isDead = true;
         playerController.enabled = false; // Matikan kontrol pemain
         Debug.Log("Player mati karena baterai habis!");
+
+        // // Aktifkan UI GameOver jika ada
+        // if (gameoverUI != null)
+        // {
+        //     gameoverUI.SetActive(true);
+        // }
+
         // Tambahkan efek kematian atau animasi di sini
     }
 
@@ -83,12 +96,6 @@ public class PlayerBattery : MonoBehaviour
             batteryBar.localScale = new Vector3(scaleX, 1f, 1f); // Hanya skala X yang berubah
         }
     }
-
-    // public void SetBatteryBar(RectTransform newBatteryBar)
-    // {
-    //     batteryBar = newBatteryBar;
-    //     UpdateBatteryUI(); // Pastikan UI langsung terupdate setelah di-set
-    // }
 
     public void InitializeBattery(RectTransform batteryBarUI)
     {
@@ -123,4 +130,22 @@ public class PlayerBattery : MonoBehaviour
         }
     }
 
+    // Tambahkan fungsi untuk menemukan GameOver UI
+    // private void FindGameOverUI()
+    // {
+    //     // Cari GameObject dengan nama "GameOverUI"
+    //     GameObject gameoverObject = GameObject.Find("UI_GameOver");
+
+    //     // Pastikan object ditemukan dan diassign ke gameoverUI
+    //     if (gameoverObject != null)
+    //     {
+    //         gameoverUI = gameoverObject;
+    //         gameoverUI.SetActive(false); // Matikan UI di awal
+    //         Debug.Log("GameOver UI ditemukan dan diassign.");
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError("GameOver UI tidak ditemukan!");
+    //     }
+    // }
 }

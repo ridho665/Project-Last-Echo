@@ -163,7 +163,7 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: -1701469119737391759}
-    m_Duration: 11.05
+    m_Duration: 12
     m_TimeScale: 1
     m_ParentTrack: {fileID: 2101486828832956932}
     m_EaseInDuration: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: Aeon Wakes Up
   - m_Version: 1
-    m_Start: 11.05
+    m_Start: 12
     m_ClipIn: 0
     m_Asset: {fileID: -463253639441728544}
     m_Duration: 10.95
@@ -298,7 +298,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: "Aeon Notices the Seed\u2019s Light"
   - m_Version: 1
-    m_Start: 22
+    m_Start: 22.95
     m_ClipIn: 0
     m_Asset: {fileID: -5560596145479868782}
     m_Duration: 5
