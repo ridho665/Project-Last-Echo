@@ -25,7 +25,7 @@ public class MoveBackground : MonoBehaviour
         float distance = (Camera.transform.position.x * parallaxEffect);
         Vector3 target = new Vector3(startPos + distance, transform.position.y, transform.position.z);
 
-        transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * 5);
+        transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
 
         if (temp > startPos + lenght)
         {
