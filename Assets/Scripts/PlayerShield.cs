@@ -6,13 +6,14 @@ public class PlayerShield : MonoBehaviour
     [SerializeField] private float shieldDuration = 5f; // Durasi shield aktif
     [SerializeField] private float shieldCooldown = 10f; // Cooldown shield setelah digunakan
 
-    private bool isShieldActive = false;
+    public bool IsShieldActive { get; private set; } = false; // Properti publik untuk memeriksa status shield
+
     private bool isCooldown = false;
     private bool canActivateShield = false;
 
     private void Update()
     {
-        if (canActivateShield && Input.GetMouseButtonDown(0) && !isShieldActive && !isCooldown) // Klik kiri mouse
+        if (canActivateShield && Input.GetMouseButtonDown(0) && !IsShieldActive && !isCooldown) // Klik kiri mouse
         {
             ActivateShield();
         }
@@ -28,9 +29,14 @@ public class PlayerShield : MonoBehaviour
 
     private void ActivateShield()
     {
-        isShieldActive = true;
+        IsShieldActive = true;
         isCooldown = true;
         shieldObject.SetActive(true); // Tampilkan shield
+
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlaySFX(4);
+        }
 
         Invoke("DeactivateShield", shieldDuration); // Matikan shield setelah durasi
     }
@@ -38,7 +44,7 @@ public class PlayerShield : MonoBehaviour
     private void DeactivateShield()
     {
         shieldObject.SetActive(false); // Sembunyikan shield
-        isShieldActive = false;
+        IsShieldActive = false;
 
         Invoke("ResetCooldown", shieldCooldown); // Atur cooldown sebelum bisa menggunakan shield lagi
     }

@@ -38,5 +38,6 @@ public class FinishPoint : MonoBehaviour
 
         // Pindah ke scene berikutnya (Level 2)
         SceneManager.LoadScene(nextSceneName);
+        AudioManager.instance.PlayBGM(2);
     }
 }

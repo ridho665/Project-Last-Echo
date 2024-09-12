@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+
     // Fungsi untuk menyimpan level saat ini
     public void SaveLevel()
     {

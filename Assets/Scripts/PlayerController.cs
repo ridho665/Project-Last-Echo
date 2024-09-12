@@ -8,15 +8,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask whatIsGround;
 
+
     private Rigidbody rb;
     private Animator animator;
     private bool isFacingRight = true;
     private bool isGrounded;
+    private bool isWalkingSoundPlaying = false;
     
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+
     }
     private void Update()
     {
@@ -42,16 +45,33 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Character is jumping.");
             rb.AddForce(new Vector3(0f, jumpForce, 0f), ForceMode.Impulse);
             animator.SetBool("isJumping", true);
+
+            AudioManager.instance.PlaySFX(1);
+
         }
 
         // Handle animation transitions
         if (Mathf.Abs(move) > 0.1f && isGrounded)
         {
             animator.SetBool("isWalking", true);
+
+            if (!isWalkingSoundPlaying)
+            {
+                AudioManager.instance.PlaySFX(0); // Anggap sound effect jalan berada pada index 1
+                isWalkingSoundPlaying = true;
+            }
+
         }
         else
         {
             animator.SetBool("isWalking", false);
+
+            if (isWalkingSoundPlaying)
+            {
+                AudioManager.instance.StopSFX(0); // Menghentikan sound effect jalan
+                isWalkingSoundPlaying = false;
+            }
+
         }
 
         if (!isGrounded)
