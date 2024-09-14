@@ -6904,6 +6904,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1024424690757561804, guid: 8767b8cd0a789c04fb3f610d10fca59e, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1024424690757561804, guid: 8767b8cd0a789c04fb3f610d10fca59e, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1024424690757561804, guid: 8767b8cd0a789c04fb3f610d10fca59e, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3909df6652ee2734b9cdca01249fd439, type: 3}
     - target: {fileID: 3489716996366069722, guid: 8767b8cd0a789c04fb3f610d10fca59e, type: 3}
       propertyPath: batteryBar
       value: 
