@@ -1675,7 +1675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightSource: {fileID: 1038045617806715817}
-  drainRate: 0.02
+  drainRate: 0.01
   rechargeAmount: 2
   maxLightRange: 10
   maxLightIntensity: 7

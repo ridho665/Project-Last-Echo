@@ -7,6 +7,7 @@ public class Battery : MonoBehaviour
         // Cek jika objek yang bersentuhan adalah player
         if (other.CompareTag("Player"))
         {
+            AudioManager.instance.PlaySFX(3);
             // Coba mendapatkan komponen PlayerBattery dari player
             PlayerBattery playerBattery = other.GetComponent<PlayerBattery>();
 
