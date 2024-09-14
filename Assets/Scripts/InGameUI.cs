@@ -6,7 +6,7 @@ public class InGameUI : MonoBehaviour
 {
     [SerializeField] private GameObject inGameUI;
     [SerializeField] private GameObject pauseUI;
-    [SerializeField] private GameObject gameoverUI; // UI GameOver
+    [SerializeField] public GameObject gameoverUI; // UI GameOver
     [SerializeField] private RectTransform batteryBar;
 
     private PlayerBattery playerBattery;
@@ -34,6 +34,9 @@ public class InGameUI : MonoBehaviour
 
         // Cek apakah baterai habis
         CheckIfBatteryDepleted();
+
+        // Cek apakah range LightSeed habis
+        // CheckIfLightSeedDepleted();
     }
 
     private bool CheckIfNotPaused()
@@ -57,6 +60,7 @@ public class InGameUI : MonoBehaviour
     private void UpdateInGameInfo()
     {
         playerBattery = PlayerManager.instance.GetPlayerBattery();
+        // lightSeed = PlayerManager.instance.GetLightSeed(); // Ambil referensi ke LightSeed dari PlayerManager
     }
 
     // Cek jika baterai player habis, aktifkan UI GameOver
@@ -68,6 +72,16 @@ public class InGameUI : MonoBehaviour
             SwitchUI(gameoverUI); // Aktifkan GameOver UI
         }
     }
+
+    // Cek jika range LightSeed habis, aktifkan UI GameOver
+    // private void CheckIfLightSeedDepleted()
+    // {
+    //     if (lightSeed != null && lightSeed.GetLightRange() <= 0) // Asumsi ada fungsi GetRange() di LightSeed
+    //     {
+    //         Time.timeScale = 0; // Hentikan waktu permainan
+    //         SwitchUI(gameoverUI); // Aktifkan GameOver UI
+    //     }
+    // }
 
     public void SwitchUI(GameObject uiMenu)
     {

@@ -32,6 +32,14 @@ public class FinishPoint : MonoBehaviour
         // Tunggu sesuai delay sebelum pindah ke scene berikutnya
         yield return new WaitForSeconds(transitionDelay);
 
+        LightSeed lightSeed = FindObjectOfType<LightSeed>();
+        if (lightSeed != null)
+        {
+            PlayerPrefs.SetFloat("LIGHT_RANGE_KEY", lightSeed.GetLightRange());
+            PlayerPrefs.Save();
+            Debug.Log("LightSeed range tersimpan: " + lightSeed.GetLightRange());
+        }
+
         PlayerPrefs.SetInt("SavedLevel", nextLevelIndex);
         PlayerPrefs.Save();
         Debug.Log("Level " + nextLevelIndex + " tersimpan.");

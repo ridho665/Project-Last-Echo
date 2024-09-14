@@ -7,13 +7,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private Transform wallCheck; // Referensi untuk wall check
+    [SerializeField] private float wallCheckRadius = 0.2f; // Radius untuk wall check
+    [SerializeField] private LayerMask whatIsWall; // Layer mask untuk wall
 
 
     private Rigidbody rb;
     private Animator animator;
     private bool isFacingRight = true;
     private bool isGrounded;
+    private bool isTouchingWall; 
     private bool isWalkingSoundPlaying = false;
+
+    public bool canMove = true;
     
     private void Start()
     {
@@ -23,10 +29,32 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        isTouchingWall = Physics.CheckSphere(wallCheck.position, wallCheckRadius, whatIsWall);
+
+        if (!canMove) 
+        {
+            // Jika tidak bisa bergerak, hentikan animasi dan kembalikan velocity ke 0
+            rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+            animator.SetBool("isWalking", false);
+
+            if (isWalkingSoundPlaying)
+            {
+                AudioManager.instance.StopSFX(0); // Hentikan suara langkah
+                isWalkingSoundPlaying = false;
+            }
+
+            return; // Tidak melanjutkan proses update
+        }
         // Ground Check
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, whatIsGround);
 
         float move = Input.GetAxis("Horizontal") * moveSpeed;
+
+        if (isTouchingWall && move != 0)
+        {
+            move = 0;
+        }
+
         rb.velocity = new Vector3(move, rb.velocity.y, 0f);
 
         // Handle flipping
@@ -102,5 +130,12 @@ public class PlayerController : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
+
+        if (wallCheck != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(wallCheck.position, wallCheckRadius);
+        }
+        
     }
 }

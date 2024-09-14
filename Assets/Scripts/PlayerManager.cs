@@ -12,9 +12,12 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     
     private PlayerBattery playerBattery;
+    private LightSeed lightSeed;
 
     public CameraManager cameraManager;
     public InGameUI inGameUI;
+    // public InGameUI gameoverUI;
+
 
 
 
@@ -74,4 +77,9 @@ public class PlayerManager : MonoBehaviour
     {
         return playerBattery;
     }
+
+    // public LightSeed GetLightSeed()
+    // {
+    //     return lightSeed;
+    // }
 }

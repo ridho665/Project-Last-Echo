@@ -14,6 +14,9 @@ public class LightSeed : MonoBehaviour
     private bool isTouchingWaterOrSunlight = false; // Status jika biji sedang menyentuh air atau cahaya matahari
     private bool isFlickering = false; // Status apakah biji sedang berkedip
 
+
+    private const string LIGHT_RANGE_KEY = "LightSeedRange"; // Key untuk PlayerPrefs
+
     private void Start()
     {
         // Jika lightSource tidak diset di Inspector, coba cari Light yang ada di object ini
@@ -21,6 +24,9 @@ public class LightSeed : MonoBehaviour
         {
             lightSource = GetComponent<Light>();
         }
+
+        // Load range cahaya yang disimpan (jika ada)
+        LoadLightRange();
     }
 
     private void Update()
@@ -36,6 +42,25 @@ public class LightSeed : MonoBehaviour
         {
             StartCoroutine(FlickerLight());
         }
+
+        if (lightSource.range <= 0f)
+        {
+            Time.timeScale = 0;
+            // Akses UI GameOver dan aktifkan
+            PlayerManager.instance.inGameUI.SwitchUI(PlayerManager.instance.inGameUI.gameoverUI);
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        // Simpan range cahaya saat game ditutup
+        SaveLightRange();
+    }
+
+    private void OnDisable()
+    {
+        // Simpan range cahaya saat object di-disable (misalnya saat berpindah level)
+        SaveLightRange();
     }
 
     // Mengurangi intensitas cahaya setiap detik
@@ -119,5 +144,29 @@ public class LightSeed : MonoBehaviour
         {
             isTouchingWaterOrSunlight = false;
         }
+    }
+
+    // Fungsi untuk menyimpan range cahaya ke PlayerPrefs
+    private void SaveLightRange()
+    {
+        PlayerPrefs.SetFloat(LIGHT_RANGE_KEY, lightSource.range); // Simpan range cahaya
+        PlayerPrefs.Save();
+        Debug.Log("LightSeed range disimpan: " + lightSource.range);
+    }
+
+    // Fungsi untuk memuat range cahaya dari PlayerPrefs
+    private void LoadLightRange()
+    {
+        if (PlayerPrefs.HasKey("LIGHT_RANGE_KEY"))
+        {
+            float savedRange = PlayerPrefs.GetFloat("LIGHT_RANGE_KEY");
+            lightSource.range = savedRange;
+            Debug.Log("LightSeed range dimuat: " + savedRange);
+        }
+    }
+
+    public float GetLightRange()
+    {
+        return lightSource.range;
     }
 }

@@ -21,11 +21,6 @@ public class PlayerBattery : MonoBehaviour
         {
             FindBatteryBar(); // Cari battery bar saat Start jika belum di-set
         }
-
-        // if (gameoverUI == null)
-        // {
-        //     FindGameOverUI(); // Cari gameover UI saat Start jika belum di-set
-        // }
         
         UpdateBatteryUI(); // Update UI saat game dimulai
     }
@@ -37,12 +32,6 @@ public class PlayerBattery : MonoBehaviour
 
         // Baterai berkurang terus, baik saat player bergerak maupun diam
         DrainBattery();
-
-        // Jika baterai habis
-        if (currentBattery <= 0)
-        {
-            Die();
-        }
     }
 
     public float MaxBattery
@@ -55,21 +44,6 @@ public class PlayerBattery : MonoBehaviour
         currentBattery -= batteryDrainRate * Time.deltaTime;
         currentBattery = Mathf.Clamp(currentBattery, 0f, maxBattery); // Pastikan baterai tidak turun di bawah 0
         UpdateBatteryUI(); // Update UI saat baterai berkurang
-    }
-
-    private void Die()
-    {
-        isDead = true;
-        playerController.enabled = false; // Matikan kontrol pemain
-        Debug.Log("Player mati karena baterai habis!");
-
-        // // Aktifkan UI GameOver jika ada
-        // if (gameoverUI != null)
-        // {
-        //     gameoverUI.SetActive(true);
-        // }
-
-        // Tambahkan efek kematian atau animasi di sini
     }
 
     public void RechargeBattery(float amount)
@@ -130,22 +104,4 @@ public class PlayerBattery : MonoBehaviour
         }
     }
 
-    // Tambahkan fungsi untuk menemukan GameOver UI
-    // private void FindGameOverUI()
-    // {
-    //     // Cari GameObject dengan nama "GameOverUI"
-    //     GameObject gameoverObject = GameObject.Find("UI_GameOver");
-
-    //     // Pastikan object ditemukan dan diassign ke gameoverUI
-    //     if (gameoverObject != null)
-    //     {
-    //         gameoverUI = gameoverObject;
-    //         gameoverUI.SetActive(false); // Matikan UI di awal
-    //         Debug.Log("GameOver UI ditemukan dan diassign.");
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError("GameOver UI tidak ditemukan!");
-    //     }
-    // }
 }

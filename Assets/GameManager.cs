@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     // Reset progress game (misalnya, jika ingin memulai dari awal)
     public void ResetProgress()
     {
+        PlayerPrefs.DeleteKey("LIGHT_RANGE_KEY");
         PlayerPrefs.DeleteKey("SavedLevel"); // Hapus data level tersimpan
         currentLevel = 1; // Reset ke level awal
         Debug.Log("Progress telah di-reset, kembali ke level 1.");
