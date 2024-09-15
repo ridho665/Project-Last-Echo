@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7500097885434848928}
   - component: {fileID: 8703107573688131060}
   - component: {fileID: 2870257466405789640}
-  - component: {fileID: 3190806587926685232}
   - component: {fileID: 2315162352793391801}
+  - component: {fileID: 5374410506228698859}
   m_Layer: 0
   m_Name: Battery
   m_TagString: Untagged
@@ -87,8 +87,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3190806587926685232
-CapsuleCollider:
+--- !u!114 &2315162352793391801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5973427305859639830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d860373dd35603249ac2b5a4f9e3a499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &5374410506228698859
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,23 +117,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2315162352793391801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5973427305859639830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d860373dd35603249ac2b5a4f9e3a499, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 4.2885604}
+  m_Center: {x: 0, y: 0, z: 0.045568705}
 --- !u!1 &8989499093409803489
 GameObject:
   m_ObjectHideFlags: 0

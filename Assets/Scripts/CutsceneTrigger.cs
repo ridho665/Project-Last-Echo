@@ -59,7 +59,7 @@ public class CutsceneTrigger : MonoBehaviour
         // Aktifkan kembali pergerakan player setelah cutscene selesai
         if (playerController != null) playerController.canMove = true;
         if (playerBattery != null) playerBattery.enabled = true;
-        if (playerShield != null) playerShield.enabled = true;
+        // if (playerShield != null) playerShield.enabled = true;
         if (lightSeed != null) lightSeed.enabled = true;
 
         // Nonaktifkan kamera cutscene
