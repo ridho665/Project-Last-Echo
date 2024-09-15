@@ -69,7 +69,7 @@ public class InGameUI : MonoBehaviour
             if (playerController != null) playerController.enabled = true;
             if (playerShield != null) playerShield.enabled = true;
 
-            AudioManager.instance.PlaySFX(0);
+            // AudioManager.instance.PlaySFX(0);
             
             gamePaused = false;
             Time.timeScale = 1;

@@ -45,6 +45,8 @@ public class CutsceneTriggerFinish : MonoBehaviour
             if (playerShield != null) playerShield.enabled = false;
             if (lightSeed != null) lightSeed.enabled = false;
 
+            AudioManager.instance.StopSFX(0);
+
             if (cutsceneCamera != null)
             {
                 cutsceneCamera.SetActive(true);
