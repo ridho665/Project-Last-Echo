@@ -83,7 +83,7 @@ public class AudioManager : MonoBehaviour
     private void PlayBGMByScene()
     {
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
-
+        Debug.Log("Scene Index: " + sceneIndex);
         // Map scene index to BGM index
         switch (sceneIndex)
         {
@@ -95,6 +95,9 @@ public class AudioManager : MonoBehaviour
                 break;
             case 2: // Level 2
                 PlayBGM(2); // BGM for Level 2
+                break;
+            case 3:
+                PlayBGM(3);
                 break;
             default:
                 PlayBGM(0); // Default BGM

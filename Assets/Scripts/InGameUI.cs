@@ -9,11 +9,22 @@ public class InGameUI : MonoBehaviour
     [SerializeField] public GameObject gameoverUI; // UI GameOver
     [SerializeField] private RectTransform batteryBar;
 
+    private PlayerController playerController;
+    private PlayerShield playerShield;
     private PlayerBattery playerBattery;
     private bool gamePaused;
 
     private void Start()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerController = player.GetComponent<PlayerController>();
+            playerBattery = player.GetComponent<PlayerBattery>();
+            playerShield = player.GetComponent<PlayerShield>();
+            // lightSeed = player.GetComponent<LightSeed>();
+        }
+
         PlayerManager.instance.inGameUI = this;
         Time.timeScale = 1;
         SwitchUI(inGameUI); // Set UI awal ke in-game UI
@@ -43,6 +54,11 @@ public class InGameUI : MonoBehaviour
     {
         if (!gamePaused)
         {
+            if (playerController != null) playerController.enabled = false;
+            if (playerShield != null) playerShield.enabled = false;
+
+            AudioManager.instance.StopSFX(0);
+
             gamePaused = true;
             Time.timeScale = 0;
             SwitchUI(pauseUI);
@@ -50,6 +66,11 @@ public class InGameUI : MonoBehaviour
         }
         else
         {
+            if (playerController != null) playerController.enabled = true;
+            if (playerShield != null) playerShield.enabled = true;
+
+            AudioManager.instance.PlaySFX(0);
+            
             gamePaused = false;
             Time.timeScale = 1;
             SwitchUI(inGameUI);
@@ -68,6 +89,8 @@ public class InGameUI : MonoBehaviour
     {
         if (playerBattery != null && playerBattery.GetCurrentBattery() <= 0)
         {
+            if (playerShield != null) playerShield.enabled = false;
+            AudioManager.instance.StopSFX(0);
             Time.timeScale = 0; // Hentikan waktu permainan
             SwitchUI(gameoverUI); // Aktifkan GameOver UI
         }
@@ -96,12 +119,16 @@ public class InGameUI : MonoBehaviour
 
     public void RestartGame()
     {
+        AudioManager.instance.PlaySFX(5);
+
         GameManager.instance.ResetProgress(); // Reset progress dan mulai dari level 1
         GameManager.instance.LoadScene(1); // Mulai dari Level 1
     }
 
     public void LoadMainMenu()
     {
+        AudioManager.instance.PlaySFX(5);
+
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
         AudioManager.instance.PlayBGM(0);

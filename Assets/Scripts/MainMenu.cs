@@ -41,17 +41,23 @@ public class MainMenu : MonoBehaviour
 
     public void OnContinuePressed()
     {
+        PlayButtonSound();
+
         GameManager.instance.LoadSavedLevel();
     }
 
     public void OnStartNewGame()
     {
+        PlayButtonSound();
+
         GameManager.instance.ResetProgress(); // Reset progress dan mulai dari level 1
         GameManager.instance.LoadScene(1); // Mulai dari Level 1
     }
 
     public void OnContinueGame()
     {
+        PlayButtonSound();
+
         GameManager.instance.ContinueGame(); // Lanjutkan game dari level terakhir yang disimpan
     }
 
@@ -66,27 +72,45 @@ public class MainMenu : MonoBehaviour
 
     public void OpenSettings()
     {
+        PlayButtonSound();
+
         settingsPanel.SetActive(true);
     }
 
     public void CloseSettings()
     {
+        PlayButtonSound();
+
         settingsPanel.SetActive(false);
     }
 
     public void OpenCredits()
     {
+        PlayButtonSound();
+
         creditsPanel.SetActive(true);
     }
 
     public void CloseCredits()
     {
+        PlayButtonSound();
+
         creditsPanel.SetActive(false);
     }
 
     public void QuitGame()
     {
+        PlayButtonSound();
         Application.Quit();
         Debug.Log("Game is exiting");
+    }
+
+    private void PlayButtonSound()
+    {
+        // Mainkan sound effect dari AudioManager
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlaySFX(5);
+        }
     }
 }

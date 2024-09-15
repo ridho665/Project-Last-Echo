@@ -53,6 +53,12 @@ public class TeleportPlayer : MonoBehaviour
         isTeleporting = true;
         interactText.SetActive(false); // Sembunyikan teks instruksi
 
+        PlayerController playerController = PlayerManager.instance.currentPlayer.GetComponent<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.canMove = false; // Set canMove menjadi false
+        }
+
         // Jika ada animasi TransitionOut, aktifkan
         if (transitionOut != null)
         {
@@ -82,6 +88,11 @@ public class TeleportPlayer : MonoBehaviour
         if (transitionIn != null)
         {
             transitionIn.SetActive(false);
+        }
+
+        if (playerController != null)
+        {
+            playerController.canMove = true; // Set canMove menjadi true
         }
 
         isTeleporting = false;  // Teleport selesai
